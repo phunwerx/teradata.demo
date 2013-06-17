@@ -1,0 +1,13 @@
+.logtable cert_ratings_log;
+
+.run file td.logon;
+
+.begin export;
+
+.export outfile cr.data format binary mode indicator;
+
+sel * from cert_ratings;
+
+.end export;
+
+.logoff;

@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+open FEXP, "< cr.data" or die "couldn't open $!";
+
+my $bin_len, $len, $data;
+
+while ((read FEXP, $bin_len, 2) == 2){
+    $len = unpack "S", $bin_len;
+    read FEXP, $data, $len;
+    print join ('|',unpack "B4 l (s/A)*", $data),"\n";
+}

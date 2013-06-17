@@ -1,0 +1,35 @@
+.logtable cert_ratings_log;
+
+.run file td.logon;
+
+delete cert_ratings;
+
+.begin import mload
+tables cert_ratings
+worktables wt_cert_ratings
+errortables et_cert_ratings uv_cert_ratings;
+
+.layout l;
+.field rating   * varchar(255);
+.field _desc    * varchar(255);
+.field obsolete * varchar(255);
+
+.dml label i;
+ins cert_ratings
+(
+	rating,
+	_desc,
+	obsolete
+)
+values
+(
+	:rating,
+	:_desc,
+	:obsolete
+);
+
+.import infile 'cert_ratings.data' from 2 format vartext '|' layout l apply i;
+
+.end mload;
+
+.logoff;
