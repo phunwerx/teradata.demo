@@ -1,0 +1,29 @@
+run file td.logon;
+
+delete from cert_ratings;
+
+set record vartext '|';
+
+define
+	rating   (varchar(255)),
+	_desc    (varchar(255)),
+	obsolete (varchar(255))
+file=cert_ratings.data;
+
+show;
+begin loading cert_ratings errorfiles error_1, error_2;
+ins cert_ratings
+(
+	rating,
+	_desc,
+	obsolete
+)
+values
+(
+	:rating,
+	:_desc,
+	:obsolete
+);
+
+end loading;
+logoff;
