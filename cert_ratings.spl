@@ -1,0 +1,13 @@
+replace procedure cert_sp (in cert_id integer, out cert_desc varchar(80))
+begin
+declare
+        i,j integer;
+select
+        _desc
+into
+        :cert_desc
+from
+        cert_ratings
+where
+        cr_id = :cert_id;
+end;
